@@ -1,0 +1,48 @@
+
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Append a blank line between prompts
+add_newline = false
+
+# Format the left prompt
+format = """
+$directory\
+$git_branch\
+$git_status\
+[❯](bold green) """
+#$character"""
+
+# Right prompt for language versions (keeps things clean)
+#right_format = """$nodejs$python$golang$rust$package"""
+right_format = """"""
+
+[character]
+success_symbol = "[❯](bold green) "
+error_symbol = "[❯](bold red) "
+
+[directory]
+style = "bold cyan"
+truncation_length = 0
+truncate_to_repo = false    # Prevents hiding the path when inside a Git repo
+fish_style_pwd_dir_length = 0 # Disables shortening folder names
+#truncation_symbol = "…/"
+
+[git_branch]
+symbol = "󰘬 "
+style = "bold purple"
+format = "on [$symbol$branch]($style) "
+
+[git_status]
+style = "bold red"
+format = "([$all_status$ahead_behind]($style) )"
+
+[nodejs]
+symbol = " "
+style = "bold green"
+format = "[$symbol($version)]($style) "
+
+[python]
+symbol = " "
+style = "bold yellow"
+format = "[$symbol($version)]($style) "
