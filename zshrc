@@ -1,4 +1,3 @@
-
 # ---------------------------------------------------------------------
 # ⚡ ZAP PLUGIN MANAGER (Fast & Minimal)
 # ---------------------------------------------------------------------
@@ -72,7 +71,37 @@ export FZF_DEFAULT_OPTS=" \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 
+# ---------------------------------------------------------------------
+# ⌨️ WORD-BY-WORD NAVIGATION & DELETION
+# ---------------------------------------------------------------------
+
+# Make Zsh recognize standard word boundaries (like Bash/standard editors)
+autoload -U select-word-style
+select-word-style bash
+
+# Ctrl + Left Arrow: Move back one word
+bindkey '^[[1;5D' backward-word
+# Ctrl + Right Arrow: Move forward one word
+bindkey '^[[1;5C' forward-word
+
+# Ctrl + Backspace: Delete back one word
+bindkey '^H' backward-kill-word
+bindkey '^[[3;5~' backward-kill-word
+
+# Ctrl + Delete: Delete forward one word
+bindkey '^[[3;5^' kill-word
+
+# ---------------------------------------------------------------------
+# 💡 ZSH-AUTOSUGGESTIONS WORD-BY-WORD ACCEPT
+# ---------------------------------------------------------------------
+
+# Ctrl + Shift + Right Arrow: Accept the next word of the suggestion
+bindkey '^[[1;6C' forward-word
+
+# Alternative: Alt + F (Classic terminal standard to accept next word)
+bindkey '^[f' forward-word
+
 # DELETE OR REMOVE THESE LINES FROM YOUR .zshrc:
-precmd() {
-  echo ""
-}
+# precmd() {
+#   echo ""
+# }
