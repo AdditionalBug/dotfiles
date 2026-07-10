@@ -1,48 +1,3 @@
-# ---------------------------------------------------------------------
-# ⚡ ZAP PLUGIN MANAGER (Fast & Minimal)
-# ---------------------------------------------------------------------
-# Automatically install Zap if it's missing
-if [ ! -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ]; then
-  echo "Installing Zap plugin manager..."
-  curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh | zsh -s -- --keep
-fi
-source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
-
-# Load essential plugins
-plug "zsh-users/zsh-autosuggestions"
-plug "zsh-users/zsh-syntax-highlighting"
-plug "zap-zsh/supercharge" # Adds sensible defaults & completion
-plug "zap-zsh/sudo"        # Press Esc twice to add 'sudo' to your last command
-plug "zap-zsh/fzf"
-
-# ---------------------------------------------------------------------
-# 🎨 PROMPT (Starship)
-# ---------------------------------------------------------------------
-eval "$(starship init zsh)"
-
-# ---------------------------------------------------------------------
-# ⚙️ HISTORY & OPTIONS
-# ---------------------------------------------------------------------
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE=~/.zsh_history
-
-setopt HIST_IGNORE_ALL_DUPS  # Don't record duplications
-setopt HIST_REDUCE_BLANKS    # Remove superfluous blanks
-setopt SHARE_HISTORY         # Share history across all sessions
-setopt AUTO_CD               # Type a directory name to CD into it
-
-# ---------------------------------------------------------------------
-# 🏷️ PRACTICAL ALIASES
-# ---------------------------------------------------------------------
-# Modern replacements for classic commands
-alias ls="eza --icons --git --color=always --group-directories-first"
-alias ll="eza -lah --icons --git --color=always --group-directories-first"
-alias cat="bat" # If you have 'bat' installed, otherwise leave as cat
-alias grep="grep --color=auto"
-
-alias cls="clear"
-
 # Navigation shortcuts
 alias ..="cd .."
 alias ...="cd ../.."
@@ -84,12 +39,17 @@ bindkey '^[[1;5D' backward-word
 # Ctrl + Right Arrow: Move forward one word
 bindkey '^[[1;5C' forward-word
 
-# Ctrl + Backspace: Delete back one word
+# --- 1. NORMAL PRESSES (Strictly Letter-by-Letter) ---
+bindkey '^?' backward-delete-char   # Backspace removes 1 letter backward
+bindkey '^[[3~' delete-char         # Delete removes 1 letter forward
+
+# --- 2. CTRL PRESSES (Wipes Entire Words) ---
+# Ctrl + Backspace
 bindkey '^H' backward-kill-word
 bindkey '^[[3;5~' backward-kill-word
 
-# Ctrl + Delete: Delete forward one word
-bindkey '^[[3;5^' kill-word
+# Ctrl + Delete
+bindkey '^[[3;5~' kill-word
 
 # ---------------------------------------------------------------------
 # 💡 ZSH-AUTOSUGGESTIONS WORD-BY-WORD ACCEPT
